@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>法国幼儿教育</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* 左侧导航栏样式 */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            padding: 30px 20px;
+            position: fixed;
+            height: 100vh;
+            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+            color: white;
+        }
+
+        .sidebar h2 {
+            color: white;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 24px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.9);
+            display: block;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* 右侧内容区域样式 */
+        .content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-size: 28px;
+        }
+
+        .section h3 {
+            color: #34495e;
+            margin: 20px 0 15px;
+            font-size: 22px;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 25px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            text-align: justify;
+            font-size: 16px;
+            color: #2c3e50;
+        }
+
+        .highlight-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 20px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3498db;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -21px;
+            top: 20px;
+            width: 2px;
+            height: calc(100% + 5px);
+            background-color: #3498db;
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .feature-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-item::before {
+            content: attr(alt);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            color: white;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            margin-top: 50px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧导航栏 -->
+        <nav class="sidebar">
+            <h2>法国幼儿教育</h2>
+            <ul class="nav-links">
+                <li><a href="#history">学前教育发展历史</a></li>
+                <li><a href="#policies">学前教育法规政策</a></li>
+                <li><a href="#kindergarten">法国幼儿园展示</a></li>
+                <li><a href="#summary">总结</a></li>
+            </ul>
+        </nav>
+
+        <!-- 右侧内容区域 -->
+        <main class="content">
+            <section id="history" class="section">
+                <h2>学前教育发展历史</h2>
+                <div class="highlight-box">
+                    <p>法国是世界上最早建立现代学前教育体系的国家之一，其教育理念和实践对全球学前教育产生了深远影响。</p>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>1881年 - 费里法案</h3>
+                        <p>确立了免费、义务、世俗的教育原则，为现代法国教育体系奠定基础。</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>1887年 - 第一所幼儿园</h3>
+                        <p>建立了第一所幼儿园（École Maternelle），开创了法国现代学前教育的先河。</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>1975年 - 哈比改革</h3>
+                        <p>将学前教育正式纳入国民教育体系，确立了其重要地位。</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>2019年 - 义务教育年龄调整</h3>
+                        <p>将义务教育年龄提前至3岁，成为世界上最早开始义务教育的国家之一。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="policies" class="section">
+                <h2>学前教育法规政策</h2>
+                <div class="highlight-box">
+                    <p>法国政府通过完善的法律体系和政策支持，确保学前教育的质量和普及。</p>
+                </div>
+
+                <h3>核心法规</h3>
+                <ul class="feature-list">
+                    <li>《教育法典》：规定学前教育的基本原则和制度</li>
+                    <li>《幼儿园教学大纲》：详细规定3-6岁儿童的教育目标和内容</li>
+                    <li>《儿童权利公约》：确保儿童在教育中的基本权利</li>
+                    <li>《教师资质标准》：规范教师培训和资质要求</li>
+                </ul>
+
+                <h3>政策特点</h3>
+                <ul class="feature-list">
+                    <li>免费教育：3-6岁儿童享受免费学前教育</li>
+                    <li>小班制：严格控制班级规模，确保教育质量</li>
+                    <li>教师资质：严格的教师培训和考核制度</li>
+                    <li>质量评估：完善的教育质量评估体系</li>
+                </ul>
+            </section>
+
+            <section id="kindergarten" class="section">
+                <h2>法国幼儿园展示</h2>
+                <p>以下展示的是巴黎一所典型的公立幼儿园，展示了法国学前教育的特色：</p>
+                
+                <div class="video-container">
+                    <!-- 这里需要替换为实际的视频嵌入代码 -->
+                    <iframe src="./images/1.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+
+                <div class="image-gallery">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="快乐的孩子们在玩耍">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="孩子们在画画">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="户外活动中的孩子们">
+                    </div>
+                </div>
+
+                <h3>教育特色</h3>
+                <div class="image-gallery" style="margin-top: 20px;">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="孩子们在音乐课上">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="团队合作活动">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="孩子们在阅读">
+                    </div>
+                </div>
+            </section>
+
+            <section id="summary" class="section">
+                <h2>总结</h2>
+                <div class="highlight-box">
+                    <p>法国学前教育体系以其完善性、创新性和高质量著称，为全球学前教育发展提供了宝贵经验。</p>
+                </div>
+
+                <h3>核心优势</h3>
+                <ul class="feature-list">
+                    <li>普及性：3岁起免费义务教育，确保教育公平</li>
+                    <li>高质量：严格的教师资质要求和课程标准</li>
+                    <li>全面性：注重儿童全面发展，包括认知、情感、社交等方面</li>
+                    <li>创新性：不断更新教育理念和方法，保持教育活力</li>
+                    <li>系统性：完善的法律保障和政策支持</li>
+                </ul>
+
+                <h3>启示与借鉴</h3>
+                <p>法国学前教育体系的成功经验告诉我们：</p>
+                <ul class="feature-list">
+                    <li>重视早期教育对儿童发展的重要性</li>
+                    <li>建立完善的法律保障体系</li>
+                    <li>注重教师专业发展</li>
+                    <li>平衡游戏与学习的关系</li>
+                    <li>关注儿童全面发展</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+    <footer class="footer">
+        <p>© 2025 法国幼儿教育网站 - 版权所有</p>
+    </footer>
+</body>
+</html>
